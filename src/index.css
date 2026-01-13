@@ -1,11 +1,13 @@
 @import "tailwindcss";
 
-:root{
+*{
     box-sizing: border-box;
 }
 input{
-    @apply border rounded;
+    border: 1px solid black;
+    border-radius: 5px;
 }
 input:focus{
-    @apply border rounded-none;
+    outline: 1px solid #6ACF90;
+    border-radius: 5px;
 }

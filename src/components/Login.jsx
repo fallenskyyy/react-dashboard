@@ -35,9 +35,9 @@ export default function Login() {
             <h1 className="text-4xl mb-10">Welcome</h1>
             <form onSubmit={handleSubmit} className="flex flex-col">
                 <label htmlFor="email">E-mail</label>
-                <input required type="text" name="email" />
+                <input autocomplete="off" required type="text" name="email" />
                 <label htmlFor="password">Password</label>
-                <input required className="mb-5" type="password" name="password"/>
+                <input autocomplete="off" required className="mb-5" type="password" name="password"/>
                 <Button type={"submit"}>Login</Button>
             </form>
         </div>

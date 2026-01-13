@@ -8,12 +8,12 @@ export default function MainRoutes() {
   return (
     <Routes>
       <Route path="/admin-dashboard" element={
-        <PrivateRoute>
+        <PrivateRoute requiredRole={"admin"}>
           <AdminDashboard />
         </PrivateRoute>
       } />
       <Route path="/user-dashboard" element={
-        <PrivateRoute>
+        <PrivateRoute requiredRole={"user"}>
           <UserDashboard />
         </PrivateRoute>
       } />
