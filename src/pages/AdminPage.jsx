@@ -1,7 +1,7 @@
 import Button from "../components/Button"
 import { useNavigate } from "react-router-dom"
 import TableRow from "../components/TableRow"
-import { getData } from "../services/api"
+import { getData, writeData } from "../services/api"
 import { useEffect, useState } from "react"
 import UsersRow from "../components/UsersRow"
 
@@ -16,11 +16,29 @@ export default function MainPage(){
         navigate("/login")
     }
 
+    function addUser(email, password, role){
+        if (role == "Admin"){
+            role = true
+        }
+        else{
+            role = false
+        }
+        SetUsers(Users.push (
+                {
+                    email: email,
+                    password: password,
+                    isAdmin: role
+                }))
+        writeData(Users)
+    }
+
     function handleSubmit(e) {
         e.preventDefault();
         const formData = new FormData(e.target);
-        const loginData = Object.fromEntries(formData);
+        const newUserData = Object.fromEntries(formData);
+        addUser(newUserData.email, newUserData.password, newUserData.role)
     }
+
     function getUsers(){
         getData().then(users => {
             SetUsers(users)
@@ -37,10 +55,12 @@ export default function MainPage(){
             <form onSubmit={handleSubmit} className="flex gap-5 items-center" action="">
                 <label htmlFor="email">Email:</label>
                 <input type="text" name="email"/>
+                <label htmlFor="password">Password</label>
+                <input type="password" name="password" />
                 <label htmlFor="role">User role:</label>
                 <select name="role" id="">
-                    <option value="admin">Admin</option>
-                    <option value="user">User</option>
+                    <option value="Admin">Admin</option>
+                    <option value="User">User</option>
                 </select>
                 <Button type="submit">Add User</Button>
             </form>
@@ -53,6 +73,7 @@ export default function MainPage(){
                         <th className="p-2">User email</th>
                         <th className="p-2">User password</th>
                         <th className="p-2">User role</th>
+                        <th className="p-2">Actions:</th>
                     </tr>
                 </thead>
                 <tbody>
